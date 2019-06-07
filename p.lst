@@ -1,0 +1,23 @@
+     1                                  section .data
+     2 00000000 0A000000                	a dd 10
+     3 00000004 14000000                	b dd 20
+     4 00000008 4164646974696F6E20-     	msg db "Addition is %d",10,0
+     5 00000011 69732025640A00     
+     6                                  section .text
+     7                                  	global main
+     8                                  	extern printf,scanf
+     9                                  	main:
+    10 00000000 A1[00000000]            	mov eax,dword[a]
+    11 00000005 8B15[04000000]          	mov edx,dword[b]
+    12 0000000B 89D8                    	mov eax,ebx
+    13 0000000D 01D0                    	add eax,edx
+    14 0000000F 50                      	push eax
+    15 00000010 68[08000000]            	push msg
+    16 00000015 E8(00000000)            	call printf
+    17 0000001A 83C408                  	add esp,8
+    18                                  
+    19                                  
+    20 0000001D 8B1D[00000000]          	mov ebx,dword[a]
+    21 00000023 8B0D[00000000]          	mov ecx,dword[a]
+    22 00000029 89CB                    	mov ebx,ecx
+    23 0000002B 83C308                  	add ebx,8

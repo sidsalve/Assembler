@@ -1,0 +1,55 @@
+import sys
+import table
+l_eax=[]
+l_ebx=[]
+l_ecx=[]
+l_edx=[]
+sys_cal=[]
+sym_addr=[]
+sym_val=[]
+with open("test.asm","r") as f:
+    for line in f:
+        if " db " in line:
+            l1=line.split('"')
+            sym_val.append(l1[1])
+            sym_addr.append('0')
+        if " equ " in line:
+            sym_val.append(len(sym_val[0])+2)
+        
+print(sym_val)
+with open("test.o","r") as file:
+    for line in file:
+        line=line.replace("\n","")
+        l=list(line)
+        if l[0]=='B' and l[1]=='8':
+            val=''.join(l[2:])
+            opc=''.join(l[:2])
+            if val=="01":
+                l_eax.append(val)
+            elif val=='04':
+                l_ebx.append(val)
+   #         print(opc,val)
+        elif l[0]=='B' and l[1]=='9':
+            val=''.join(l[2:])
+            opc=''.join(l[:2])
+            if '[' in val:
+                l_ecx.append(val)
+  #          print(opc,val)
+        elif l[0]=='B' and l[1]=='A':
+            val=''.join(l[2:])
+            opc=''.join(l[:2])
+            l_edx.append(val)
+ #           print(opc,val)
+        elif l[0]=='C' and l[1]=='D':
+            val=''.join(l[2:])
+            opc=''.join(l[:2])
+            if val=='80':
+                if l_ebx[0]=='04':
+                    for i in range(len(sym_addr)):
+                        if sym_addr[i] in l_ecx[0]:
+                            print(sym_val[0])
+                if l_eax[0]=='01':
+                    sys.exit(0)
+               # print(opc,val)
+            
+#print(l_eax,l_ebx,l_ecx,l_edx)

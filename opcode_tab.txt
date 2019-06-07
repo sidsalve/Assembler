@@ -1,0 +1,9 @@
+89/r	mov|r32|r32
+8B/r	mov|r32|rm32
+A1	mov|eax|moffs32
+01/r	add|eax|r32
+01/r	add|r32|r32
+83/0,ib	add|r32|imm8
+50+rd	push|r32
+68/id	push|imm32
+E8/cd	call|rel32
